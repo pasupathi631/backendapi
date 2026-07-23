@@ -1,10 +1,11 @@
 import app from "./app.js";
+import { env } from "./config/env.js";
 
 (async () => {
   try {
 
-    app.listen(5000, () => {
-      console.log( `=> Server running on port: 5000`)
+    app.listen(env.PORT, () => {
+      console.log( `=> Server running on port: ${env.PORT}`)
     });
 
   } catch (err) {

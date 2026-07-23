@@ -1,12 +1,13 @@
 import { createPool } from "mysql2/promise";
+import { env } from "./env.js";
 
 
 const db = createPool({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "signup",
-  port: 3306,
+  host: env.DB_HOST,
+  user: env.DB_USER,
+  password: env.DB_PASSWORD,
+  database: env.DB_NAME,
+  port: env.DB_PORT,
   connectionLimit: 20, 
   dateStrings: true, 
   queueLimit: 0,    
