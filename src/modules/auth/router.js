@@ -1,8 +1,10 @@
 import express from "express"
-import { signup } from "./controller.js";
+import { login, signup } from "./controller.js";
+
 
 const signRouter = express.Router()
 
 signRouter.post('/insert', signup)
+signRouter.post('/login', login)
 
 export default signRouter
