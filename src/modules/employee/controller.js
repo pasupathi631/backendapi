@@ -6,13 +6,13 @@ export const insert = async (req, res) => {
     try {
 
         const store = req.body
-        console.log(store)
+        
 
         const create = await postemployee(store)
         console.log(create)
         res.json({
             success: true,
-            message: "passed"
+            message: "created"
         })
         
     } catch (error) {
@@ -29,15 +29,12 @@ export const report = async (req, res) => {
     
     try {
 
-        const store1_1 = req.body
-        console.log(store1_1)
-
-        const view = await getreport(store1_1)
+        const view = await getreport()
         console.log(view)
 
         res.json({
             success: true,
-            message: "passed"
+            list: view
         })
         
     } catch (error) {
@@ -63,7 +60,7 @@ export const view = async (req, res) => {
         console.log(viewid)
         res.json({
             success: true,
-            message:"passed"
+            data: viewid
         })
         
     } catch (error) {
@@ -76,6 +73,8 @@ export const view = async (req, res) => {
     }
 }
 
+
+// update the table in data
 export const update = async (req, res) => {
     try {
 
@@ -86,7 +85,7 @@ export const update = async (req, res) => {
         
         res.json({
             success: true,
-            message: "passed"
+            message: "updated"
         })
         
     } catch ({error}) {

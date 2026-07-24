@@ -1,8 +1,10 @@
 import db from "../../config/db.js"
 import { update } from "./controller.js"
 
+
+// insert data in table
 export const postemployee = async (store) => {
-    console.log(store)
+
 
     const data = await db.query(`insert into emplyoee (
         
@@ -36,8 +38,10 @@ export const postemployee = async (store) => {
 
 }
 
-export const getreport = async (store1_1) => {
-    console.log(store1_1)
+
+// view table report
+export const getreport = async () => {
+
 
     const data = await db.query(`select 
         emp_name, 
@@ -45,7 +49,7 @@ export const getreport = async (store1_1) => {
         emp_ph_no,
         emp_dept, 
         emp_desigation from 
-        emplyoee`, [store1_1])
+        emplyoee`)
 
     return data[0]
 }
@@ -55,9 +59,9 @@ export const getreport = async (store1_1) => {
 export const getempid = async (store_2) => {
     console.log(store_2)
 
-    const data = await db.query(`select * from emplyoee where employee_id = ?`, [store_2  ]  )
-    
-    return data[0]
+    const data = await db.query(`select * from emplyoee where employee_id = ?`, [store_2])
+
+    return data[0][0]
 }
 
 // update
@@ -81,9 +85,9 @@ export const editempid = async (store_3) => {
         emp_dept = ?,
         emp_slary = ?,
         emp_desigation = ?
-        WHERE employee_id = ? `, 
+        WHERE employee_id = ? `,
 
-       [ store_3.emp_name, store_3.emp_email,
+        [store_3.emp_name, store_3.emp_email,
         store_3.emp_dob, store_3.emp_gender, store_3.emp_ph_no,
         store_3.emp_address, store_3.emp_emg_contact,
         store_3.emp_emg_phone, store_3.emp_bld_grp,
@@ -91,7 +95,6 @@ export const editempid = async (store_3) => {
         store_3.emp_language, store_3.emp_dept, store_3.emp_slary,
         store_3.emp_desigation, store_3.employee_id,
         ]
-);
-    
-    
+    );
+
 }
