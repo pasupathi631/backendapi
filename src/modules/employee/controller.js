@@ -79,15 +79,11 @@ export const view = async (req, res) => {
 export const update = async (req, res) => {
     try {
 
-        // const store_3 = b44
-        // console.log(store_3)
+        const store_3 = req.body
+        console.log(store_3)
 
-        // const body = req.body
-        // console.log(body)
-
-        const update = await editempid()
-        console.log(update)
-        editempid(5)
+         await editempid(store_3)
+        
         res.json({
             success: true,
             message: "passed"

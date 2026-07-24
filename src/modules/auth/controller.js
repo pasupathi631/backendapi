@@ -1,4 +1,4 @@
-import { postsignup, verify } from "./model.js"
+import { getdbpass, postsignup, } from "./model.js"
 
 export const signup = async (req, res) => {
 
@@ -23,13 +23,14 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
 
     try {
-        const load = req.body
-        console.log(load)
 
-        const result = await verify(load);
-        console.log("result", result)
+        const body = req.body
+        console.log(body)
 
-        if (result.length == 0) {
+        const dbpass = await getdbpass(body.email)
+        console.log(dbpass)
+
+        if(dbpass == body.pass){
 
             res.json({
                 success: true,
@@ -55,5 +56,15 @@ export const login = async (req, res) => {
         });
 
     }
-
 }
+
+
+
+
+  // const load = req.body
+        // console.log(load)
+
+        // const result = await verify(load);
+        // console.log("result", result)
+
+        // if (result.length == 1) {

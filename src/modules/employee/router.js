@@ -7,6 +7,6 @@ const employeeRouter = express.Router()
 employeeRouter.post('/create', insert)
 employeeRouter.get('/list', report)
 employeeRouter.get('/get/:id', view)
-employeeRouter.put('/edit/:id', update)
+employeeRouter.put('/edit', update)
 
 export default employeeRouter;
