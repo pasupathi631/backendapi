@@ -34,7 +34,7 @@ export const login = async (req, res) => {
 
             res.json({
                 success: true,
-                message: "testing"
+                
             });
 
         } else {
@@ -52,7 +52,7 @@ export const login = async (req, res) => {
 
         res.json({
             success: false,
-            message: "Server Error"
+            message:  "Invalid Email or Password"
         });
 
     }

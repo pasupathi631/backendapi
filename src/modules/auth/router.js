@@ -7,4 +7,4 @@ const signRouter = express.Router()
 signRouter.post('/signup', signup)
 signRouter.post('/login', login)
 
-export default signRouter
+export default signRouter;

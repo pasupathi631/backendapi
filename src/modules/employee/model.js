@@ -43,7 +43,8 @@ export const postemployee = async (store) => {
 export const getreport = async () => {
 
 
-    const data = await db.query(`select 
+    const data = await db.query(`select
+        employee_id,
         emp_name, 
         emp_email,
         emp_ph_no,
