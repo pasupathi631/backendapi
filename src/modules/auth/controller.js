@@ -1,4 +1,3 @@
-
 import { postsignup, verify } from "./model.js"
 
 export const signup = async (req, res) => {
