@@ -1,4 +1,5 @@
 import { getdbpass, postsignup, } from "./model.js"
+import bcrypt  from "bcryptjs"
 
 export const signup = async (req, res) => {
 
@@ -6,7 +7,9 @@ export const signup = async (req, res) => {
         const store = req.body
         console.log(store)
 
-        const mode = await postsignup(store)
+        const hash = await bcrypt.hash(store.pass, 10)
+
+        const mode = await postsignup(store, hash)
         res.json({
             success: true
 
@@ -25,12 +28,14 @@ export const login = async (req, res) => {
     try {
 
         const body = req.body
-        console.log(body)
+        console.log("body", body)
 
         const dbpass = await getdbpass(body.email)
-        console.log(dbpass)
+        console.log("password", dbpass)
 
-        if(dbpass == body.pass){
+        const passvalid = await bcrypt.compare( body.pass, dbpass)
+
+        if(passvalid){
 
             res.json({
                 success: true,
