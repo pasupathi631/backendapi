@@ -1,11 +1,11 @@
 import express from "express"
-import { insert, list, toggleStatus, update } from "./deptcontroller.js"
+import { insert,  update } from "./deptcontroller.js"
 
 const departmentsRouter = express.Router()
 
-departmentsRouter.get('/list', list)
+// departmentsRouter.get('/list', list)
 departmentsRouter.post('/create', insert)
 departmentsRouter.put('/edit', update)
-departmentsRouter.put('/toggle-status/:deptIdCode', toggleStatus)
+// departmentsRouter.put('/toggle-status/:deptIdCode', toggleStatus)
 
 export default departmentsRouter;

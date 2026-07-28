@@ -1,21 +1,7 @@
 
-import { getDepartments, postdept, putdept, toggleDeptStatus } from "./deptmodel.js"
+import {  postdept, putdept } from "./deptmodel.js"
 
-export const list = async (req, res) => {
-    try {
-        const departments = await getDepartments();
-        res.json({
-            success: true,
-            list: departments
-        });
-    } catch (error) {
-        console.log(error);
-        res.json({
-            success: false,
-            message: "failed"
-        });
-    }
-};
+
 
 export const insert = async (req, res) => {
     try {
@@ -38,6 +24,7 @@ export const insert = async (req, res) => {
 export const update = async (req, res) => {
     try {
         const body = req.body;
+        console.log("hello", body)
         await putdept(body);
 
         res.json({
@@ -53,21 +40,3 @@ export const update = async (req, res) => {
     }
 };
 
-export const toggleStatus = async (req, res) => {
-    try {
-        const { deptIdCode } = req.params;
-        const { status } = req.body;
-        await toggleDeptStatus(deptIdCode, status);
-
-        res.json({
-            success: true,
-            message: "updated"
-        });
-    } catch (error) {
-        console.log(error);
-        res.json({
-            success: false,
-            message: "failed"
-        });
-    }
-};
