@@ -1,8 +1,8 @@
 
-import {  postdept, putdept } from "./deptmodel.js"
+import {  getview, postdept, putdept } from "./deptmodel.js"
 
 
-
+// insert table 
 export const insert = async (req, res) => {
     try {
         const body = req.body;
@@ -21,10 +21,11 @@ export const insert = async (req, res) => {
     }
 };
 
+// update table
+
 export const update = async (req, res) => {
     try {
         const body = req.body;
-        console.log("hello", body)
         await putdept(body);
 
         res.json({
@@ -39,4 +40,35 @@ export const update = async (req, res) => {
         });
     }
 };
+
+// view table
+
+export const list = async (req, res) => {
+
+    try {
+
+        const limit = req.params.limit
+        const offset = req.params.offset
+
+        console.log("hello", offset)
+
+       const viewdept = await getview(limit, offset)
+
+        res.json({
+            success: true,
+            message: "view successfully",
+            data: viewdept
+            
+        })
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success: false,
+            message: "error view"
+        })
+        
+    }
+
+}
 

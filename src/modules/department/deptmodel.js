@@ -1,7 +1,7 @@
 import db from "../../config/db.js"
 
 
-
+// insert table
 export const postdept = async (body) => {
     
 
@@ -13,6 +13,8 @@ export const postdept = async (body) => {
     ]);
 
 };
+
+// update table
 
 export const putdept = async (body) => {
     
@@ -26,4 +28,13 @@ export const putdept = async (body) => {
     ])
 
 };
+
+// view table
+
+export const getview = async (limit, offset) => {
+
+   const data = await db.query(`select * from departments order by dept_id limit ? offset ?`, [Number(limit), Number(offset)])
+
+    return data[0];
+}
 
