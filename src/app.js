@@ -3,6 +3,7 @@ import { connectDB } from "./config/db.js";
 import signRouter from "./modules/auth/router.js";
 import employeeRouter from "./modules/employee/router.js";
 import cors from "cors"
+import departmentsRouter from "./modules/department/deptrouter.js";
 
 
 const app = express() 
@@ -14,6 +15,7 @@ await connectDB()
 
     app.use('/auth', signRouter)
     app.use('/employee', employeeRouter)
+    app.use('/department', departmentsRouter)
 
 app.use((req, res) => {
     res.status(404).json({
