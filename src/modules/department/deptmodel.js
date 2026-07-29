@@ -5,7 +5,7 @@ import db from "../../config/db.js"
 export const postdept = async (body) => {
     
 
-    const result = await db.query(`
+    await db.query(`
         INSERT INTO departments (dept_name, dept_code, dept_desc, dept_status)
         VALUES (?, ?, ?, ?)
     `, [
@@ -21,10 +21,10 @@ export const putdept = async (body) => {
 
     await db.query(`
         UPDATE departments
-        SET dept_name = ?, dept_desc = ?, dept_status = ?
-        WHERE dept_code = ?
+        SET dept_name = ?, dept_code = ?, dept_desc = ?, dept_status = ?
+        WHERE dept_id = ?
     `, [
-        body.dept_name, body.dept_desc, body.dept_status, body.dept_code 
+        body.dept_name, body.dept_code, body.dept_desc, body.dept_status, body.dept_id 
     ])
 
 };
@@ -38,3 +38,14 @@ export const getview = async (limit, offset) => {
     return data[0];
 }
 
+
+// search in table
+
+export const postsearch = async (body) => {
+    
+    const data = await db.query(`select * from departments where dept_name like ? or dept_code like ?`,
+
+        [`${body.search }%`,`${body.search}% `]
+    )
+return data
+}

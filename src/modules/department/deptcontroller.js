@@ -1,5 +1,5 @@
 
-import {  getview, postdept, putdept } from "./deptmodel.js"
+import {  getview, postdept, postsearch, putdept } from "./deptmodel.js"
 
 
 // insert table 
@@ -50,8 +50,6 @@ export const list = async (req, res) => {
         const limit = req.params.limit
         const offset = req.params.offset
 
-        console.log("hello", offset)
-
        const viewdept = await getview(limit, offset)
 
         res.json({
@@ -70,5 +68,29 @@ export const list = async (req, res) => {
         
     }
 
+}
+
+// search in table
+
+export const search = async (req, res) => {
+
+    try {
+
+        const body = req.body
+        console.log("body", body)
+
+         const [result] = await  postsearch(body)
+         return res.json({
+        success: true,
+        result
+    })
+        
+    } catch (error) {
+        console.log(error)
+         return res.json({
+            success: false
+        })
+        
+    }
 }
 

@@ -1,6 +1,6 @@
 
 import express from "express"
-import { insert, report, update, view } from "./controller.js"
+import { insert, report, search, update, view } from "./controller.js"
 
 const employeeRouter = express.Router()
 
@@ -9,5 +9,6 @@ employeeRouter.post('/create', insert)
 employeeRouter.get('/list', report)
 employeeRouter.get('/get/:id', view)
 employeeRouter.put('/edit', update)
+employeeRouter.post('/search', search)
 
 export default employeeRouter;

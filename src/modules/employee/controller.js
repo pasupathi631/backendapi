@@ -1,4 +1,4 @@
-import { editempid, getempid, getreport, postemployee } from "./model.js"
+import { editempid, employeid, getempid, getreport, postemployee } from "./model.js"
 
 
 // insert data like create data
@@ -8,8 +8,11 @@ export const insert = async (req, res) => {
         const store = req.body
         
 
-        const create = await postemployee(store)
-        console.log(create)
+        const empid = await postemployee(store)
+        console.log("helo",empid)
+        const empcode = `EMP${empid}`
+        await employeid(empcode, empid)
+
         res.json({
             success: true,
             message: "created"
@@ -78,17 +81,16 @@ export const view = async (req, res) => {
 export const update = async (req, res) => {
     try {
 
-        const store_3 = req.body
-        console.log(store_3)
+        const data = req.body
 
-         await editempid(store_3)
+         await editempid(data)
         
         res.json({
             success: true,
             message: "updated"
         })
         
-    } catch ({error}) {
+    } catch (error) {
         console.log(error)
         res.json({
             success: false,
@@ -96,4 +98,24 @@ export const update = async (req, res) => {
         })
         
     }
+}
+
+// search table
+
+export const search = async (req, res) => {
+
+   try {
+
+    const body = req.body
+
+     const [result] = await postsearch(body)
+    
+   } catch (error) {
+
+    console.log(error)
+    res.json({
+        success: false
+    })
+    
+   }
 }
