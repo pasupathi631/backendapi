@@ -44,7 +44,7 @@ export const update = async (req, res) => {
 // view table
 
 export const list = async (req, res) => {
-
+    
     try {
 
         const limit = req.params.limit

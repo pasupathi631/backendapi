@@ -119,5 +119,5 @@ export const editempid = async (store_3) => {
 
 export const postsearch = async (body) => {
 
-    const data = await db.query(`select * from employees where emp_name like ? or   `)
+    const data = await db.query(`select * from employees where emp_name like ? or emp_mail ?  `)
 }

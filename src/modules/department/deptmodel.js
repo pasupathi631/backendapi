@@ -43,9 +43,11 @@ export const getview = async (limit, offset) => {
 
 export const postsearch = async (body) => {
     
-    const data = await db.query(`select * from departments where dept_name like ? or dept_code like ?`,
+    const data = await db.query(`select * from departments where dept_status = ? and (dept_name like ? or dept_code like ?) limit ? offset ?`,
 
-        [`${body.search }%`,`${body.search}% `]
+        [ body.dept_status, `${body.search }%`,`${body.search}% `, body.limit, body.offset]
     )
 return data
 }
+
+
