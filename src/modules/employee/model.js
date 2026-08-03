@@ -70,12 +70,15 @@ export const getreport = async () => {
     return data[0]
 }
 
-// view specific id in a table
+// view specific id in a table use left join
 
 export const getempid = async (store_2) => {
-    console.log(store_2)
-
-    const data = await db.query(`select * from employees where emp_id = ?`, [store_2])
+    
+    const data = await db.query(`  select e.* ,
+         d.dept_name, d.dept_code from employees e 
+         left join departments d 
+         ON e.emp_dept = d.dept_id where e.emp_id = ?`, 
+        [store_2])
 
     return data[0][0]
 }

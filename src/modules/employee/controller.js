@@ -33,7 +33,7 @@ export const report = async (req, res) => {
     try {
 
         const view = await getreport()
-        console.log(view)
+       
 
         res.json({
             success: true,
@@ -57,10 +57,10 @@ export const view = async (req, res) => {
     try {
 
         const store_2 = req.params.id
-        console.log(store_2)
+   
 
         const viewid = await getempid(store_2)
-        console.log(viewid)
+    
         res.json({
             success: true,
             data: viewid
