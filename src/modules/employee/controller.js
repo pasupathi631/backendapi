@@ -32,9 +32,9 @@ export const report = async (req, res) => {
     
     try {
 
-        const view = await getreport()
-       
-
+        const limit = req.params.limit
+        const offset = req.params.offset
+        const view = await getreport(limit, offset)
         res.json({
             success: true,
             list: view

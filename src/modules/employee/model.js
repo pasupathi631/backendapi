@@ -53,19 +53,23 @@ export const employeid = async (body, empid) => {
 } 
 
 
-// view table report
-export const getreport = async () => {
+// view table report with left jion query set limit 5
+export const getreport = async (limit, offset) => {
 
 
     const data = await db.query(`select
-        emp_id,
-        emp_name, 
-        emp_email,
-        emp_ph_no,
-        emp_dept, 
-        emp_designation,
-        emp_status from 
-        employees`)
+        e.emp_id,
+        e.emp_name, 
+        e.emp_email,
+        e.emp_ph_no,
+        e.emp_dept, 
+        e.emp_designation,
+        e.emp_status, 
+        d.dept_name,
+        d.dept_code
+        from 
+        employees e left join departments d on e.emp_dept = d.dept_id 
+        limit ? offset ?`, [Number(limit), Number(offset)])
 
     return data[0]
 }
@@ -77,7 +81,7 @@ export const getempid = async (store_2) => {
     const data = await db.query(`  select e.* ,
          d.dept_name, d.dept_code from employees e 
          left join departments d 
-         ON e.emp_dept = d.dept_id where e.emp_id = ?`, 
+         ON e.emp_dept = d.dept_id where e.emp_id = ? limit 5`, 
         [store_2])
 
     return data[0][0]

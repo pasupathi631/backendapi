@@ -6,7 +6,7 @@ const employeeRouter = express.Router()
 
 
 employeeRouter.post('/create', insert)
-employeeRouter.get('/list', report)
+employeeRouter.get('/list/:limit/:offset', report)
 employeeRouter.get('/get/:id', view)
 employeeRouter.put('/edit', update)
 employeeRouter.post('/search', search)
