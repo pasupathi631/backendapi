@@ -50,4 +50,10 @@ export const postsearch = async (body) => {
 return data
 }
 
+// search by department name
+export const postdeptsearch = async (body) => {
 
+    const data = await db.query(`SELECT * FROM departments WHERE dept_id = ? AND dept_name LIKE ? or dept_code LIKE ?`, [body.dept_id, `%${body.search}%`, `%${body.search}%`]);
+    
+    return data[0];
+};
