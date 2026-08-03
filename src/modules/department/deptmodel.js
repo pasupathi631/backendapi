@@ -9,7 +9,7 @@ export const postdept = async (body) => {
         INSERT INTO departments (dept_name, dept_code, dept_desc, dept_status)
         VALUES (?, ?, ?, ?)
     `, [
-          body.dept_name, body.dept_desc, body.dept_status, body.dept_code 
+          body.dept_name, body.dept_code, body.dept_desc, body.dept_status 
     ]);
 
 };

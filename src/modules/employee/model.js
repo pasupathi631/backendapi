@@ -24,16 +24,17 @@ export const postemployee = async (store) => {
     emp_salary,
     emp_dept,
     emp_designation,
-    emp_code
+    emp_code,
+    emp_status
     
-    ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [store.emp_id, store.emp_name, store.emp_email,
         store.emp_dob, store.emp_gender, store.emp_ph_no,
         store.emp_address, store.emp_emg_contact,
         store.emp_emg_phone, store.emp_bld_grp,
-        store.emp_merit, store.emp_nationalit,
-        store.emp_language, store.emp_dept, store.emp_salary,
-        store.emp_designation, store.emp_code
+        store.emp_merit, store.emp_nationality,
+        store.emp_language, store.emp_salary, store.emp_dept,
+        store.emp_designation, store.emp_code, store.emp_status || 'Active'
         ]
 
     )
@@ -62,7 +63,8 @@ export const getreport = async () => {
         emp_email,
         emp_ph_no,
         emp_dept, 
-        emp_designation from 
+        emp_designation,
+        emp_status from 
         employees`)
 
     return data[0]
@@ -98,7 +100,8 @@ export const editempid = async (store_3) => {
         emp_language = ?,
         emp_dept = ?,
         emp_salary = ?,
-        emp_designation = ?
+        emp_designation = ?,
+        emp_status = ?
         
         WHERE emp_id = ? `,
 
@@ -108,7 +111,7 @@ export const editempid = async (store_3) => {
         store_3.emp_emg_phone, store_3.emp_bld_grp,
         store_3.emp_merit, store_3.emp_nationality,
         store_3.emp_language, store_3.emp_dept, store_3.emp_salary,
-        store_3.emp_designation, store_3.emp_id
+        store_3.emp_designation, store_3.emp_status, store_3.emp_id
         ]
     );
 
