@@ -131,3 +131,21 @@ export const postsearch = async (body) => {
 
     const data = await db.query(`select * from employees where emp_name like ? or emp_code ?  `)
 }
+
+// filter in table add more filter options use like
+
+export const postfilter = async (body) => {
+
+    const data = await db.query(`select * from employees where emp_dept like ? and emp_designation like ? and emp_status like ?`, 
+        [body.emp_dept, body.emp_designation, body.emp_status])
+
+    return data[0]
+}
+
+export const getcount = async () => {
+
+    const data = await db.query( `SELECT COUNT(*) AS total_employees
+FROM employees`)
+
+return data[0][0].total_employees
+}

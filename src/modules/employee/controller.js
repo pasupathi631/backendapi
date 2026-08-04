@@ -1,4 +1,4 @@
-import { editempid, employeid, getempid, getreport, postemployee } from "./model.js"
+import { editempid, employeid, getcount, getempid, getreport, postemployee, postfilter } from "./model.js"
 
 
 // insert data like create data
@@ -35,9 +35,11 @@ export const report = async (req, res) => {
         const limit = req.params.limit
         const offset = req.params.offset
         const view = await getreport(limit, offset)
+        const count = await getcount()
         res.json({
             success: true,
-            list: view
+            list: view,
+            count: count
         })
         
     } catch (error) {
@@ -118,4 +120,23 @@ export const search = async (req, res) => {
     })
     
    }
+}
+
+// employee filter
+export const filter = async (req, res) => {
+
+    try {
+
+        const body = req.body
+        const [result] = await postfilter(body)
+        res.json({
+            success: true,
+            data: result
+        })
+    } catch (error) {
+        console.log(error)
+        res.json({
+            success: false
+        })
+    }
 }
