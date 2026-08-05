@@ -102,7 +102,7 @@ export const deptnamesearch = async (req, res) => {
         const body = req.body
         
 
-        const [result] = await  postdeptsearch(body)
+        const result = await  postdeptsearch(body)
         return res.json({
             success: true,
             result
