@@ -18,6 +18,7 @@ export async function up(knex) {
     emp_dept VARCHAR(100),
     emp_designation VARCHAR(100),
     emp_code VARCHAR(100),
+    emp_status ENUM('Active', 'Inactive') DEFAULT 'Active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP

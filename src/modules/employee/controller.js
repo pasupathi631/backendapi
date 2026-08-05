@@ -122,13 +122,13 @@ export const search = async (req, res) => {
    }
 }
 
-// employee filter
+// employee filter limit offset
 export const filter = async (req, res) => {
 
     try {
 
         const body = req.body
-        const [result] = await postfilter(body)
+        const result = await postfilter(body)
         res.json({
             success: true,
             data: result
@@ -140,3 +140,5 @@ export const filter = async (req, res) => {
         })
     }
 }
+
+
