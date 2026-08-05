@@ -44,9 +44,9 @@ export const getview = async (limit, offset) => {
 export const postsearch = async (body) => {
  
     
-    const data = await db.query(`select * from departments where dept_status = ? and (dept_name like ? or dept_code like ? ) limit ? offset ?`,
+    const data = await db.query(`select *, count(*) over() as total from departments where dept_status = ? and (dept_name like ? or dept_code like ? ) limit ? offset ?`,
 
-        [body.dept_status, `${body.search }%`,`${body.search}%`, body.limit, body.offset]
+        [body.dept_status, `${body.search }%`,`${body.search}%`, Number(body.limit), Number(body.offset)]
     )
     console.log("data", data)
 
@@ -55,9 +55,9 @@ return data[0]
 
 export const postAllsearch = async (body) => {
     
-    const data = await db.query(`select * from departments where  dept_name like ? or dept_code like ? limit ? offset ?`,
+    const data = await db.query(`select *, count(*) over() as total from departments where  dept_name like ? or dept_code like ? limit ? offset ?`,
 
-        [`${body.search }%`,`${body.search}%`, body.limit, body.offset]
+        [`${body.search }%`,`${body.search}%`, Number(body.limit), Number(body.offset)]
     )
 return data[0]
 }
@@ -69,3 +69,9 @@ export const postdeptsearch = async (body) => {
     
     return data[0]
 };
+
+// get department total count
+export const getdeptcount = async () => {
+    const data = await db.query(`SELECT COUNT(*) AS total_departments FROM departments`)
+    return data[0][0].total_departments
+}

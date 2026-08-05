@@ -1,5 +1,5 @@
 
-import {  getview, postAllsearch, postdept, postdeptsearch, postsearch, putdept } from "./deptmodel.js"
+import {  getview, postAllsearch, postdept, postdeptsearch, postsearch, putdept, getdeptcount } from "./deptmodel.js"
 
 
 // insert table 
@@ -51,12 +51,13 @@ export const list = async (req, res) => {
         const offset = req.params.offset
 
        const viewdept = await getview(limit, offset)
+       const count = await getdeptcount()
 
         res.json({
             success: true,
             message: "view successfully",
-            data: viewdept
-            
+            data: viewdept,
+            count: count
         })
         
     } catch (error) {
