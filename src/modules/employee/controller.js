@@ -128,7 +128,7 @@ export const filter = async (req, res) => {
     try {
 
         const body = req.body
-        const [result] = await postfilter(body)
+        const result = await postfilter(body)
         res.json({
             success: true,
             data: result
