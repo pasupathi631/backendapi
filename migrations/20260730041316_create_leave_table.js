@@ -2,7 +2,7 @@ export async function up(knex) {
 
     await knex.raw(
 
-      ` CREATE TABLE leave (
+      ` CREATE TABLE leave_manage (
     leave_id INT PRIMARY KEY AUTO_INCREMENT,
     emp_id INT,
     leave_type VARCHAR(50),
@@ -23,7 +23,7 @@ export async function up(knex) {
 export async function down(knex) {
 
     await knex.raw(
-        `drop table if exists login`
+        `drop table if exists leave_manage`
     );
 
 

@@ -1,5 +1,5 @@
 import db from "../../config/db.js"
-import { update } from "./controller.js"
+import { filter, update } from "./controller.js"
 
 
 // insert data in table
@@ -129,18 +129,11 @@ export const editempid = async (store_3) => {
 
 export const postsearch = async (body) => {
 
-    const data = await db.query(`select * from employees where emp_name like ? or emp_code ?  `)
+    const data = await db.query(`select * from employees where emp_name like ? or emp_code ?`)
 }
 
-// filter in table add more filter options use like
 
-export const postfilter = async (body) => {
-
-    const data = await db.query(`select * from employees where emp_dept like ? and emp_designation like ? and emp_status like ?`, 
-        [body.emp_dept, body.emp_designation, body.emp_status])
-
-    return data[0]
-}
+// count totle list
 
 export const getcount = async () => {
 
@@ -149,3 +142,38 @@ FROM employees`)
 
 return data[0][0].total_employees
 }
+
+ // filter employees with limit and offset
+
+ export const postfilter = async (body) => {
+    
+    let query = `SELECT *,count(*) over() as total FROM employees WHERE 1=1`
+    const queryValues = []
+
+    const filterColumnMap = {
+        emp_dept: { column: "emp_dept", operator: "like ?" },
+        emp_email: { column: "emp_email", operator: "like ?" },
+        emp_gender: { column: "emp_gender", operator: "like ?" },
+        emp_code: { column: "emp_code", operator: "like ?" },
+        emp_status: { column: "emp_status", operator: "like ?"}
+    }
+
+    for (const [key, value] of Object.entries(body.filter)) {
+        const columnConfig = filterColumnMap[key]
+
+        if (!columnConfig) {
+            continue
+        }
+        query += ` AND ${columnConfig.column} ${columnConfig.operator}`
+        queryValues.push(`${value}%`)
+    }
+
+    query += " LIMIT ? OFFSET ?"
+    queryValues.push(Number(body.limit))
+    queryValues.push(Number(body.offset))   
+
+    console.log(query)
+    console.log(queryValues)
+    const rows = await db.query(query, queryValues)
+    return rows[0]
+ }
