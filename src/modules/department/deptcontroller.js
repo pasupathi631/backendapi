@@ -1,5 +1,5 @@
 
-import {  getview, postdept, postdeptsearch, postsearch, putdept } from "./deptmodel.js"
+import {  getview, postAllsearch, postdept, postdeptsearch, postsearch, putdept } from "./deptmodel.js"
 
 
 // insert table 
@@ -79,7 +79,7 @@ export const search = async (req, res) => {
         const body = req.body
         console.log("body", body)
 
-         const [result] = await  postsearch(body)
+         const result =  body.dept_status == "ALL" ? await postAllsearch(body) : await  postsearch(body)
          return res.json({
         success: true,
         result

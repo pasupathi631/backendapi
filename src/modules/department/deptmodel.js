@@ -42,12 +42,24 @@ export const getview = async (limit, offset) => {
 // search in table
 
 export const postsearch = async (body) => {
+ 
     
-    const data = await db.query(`select * from departments where dept_status = ? and (dept_name like ? or dept_code like ?) limit ? offset ?`,
+    const data = await db.query(`select * from departments where dept_status = ? and (dept_name like ? or dept_code like ? ) limit ? offset ?`,
 
-        [ body.dept_status, `${body.search }%`,`${body.search}% `, body.limit, body.offset]
+        [body.dept_status, `${body.search }%`,`${body.search}%`, body.limit, body.offset]
     )
-return data
+    console.log("data", data)
+
+return data[0]
+}
+
+export const postAllsearch = async (body) => {
+    
+    const data = await db.query(`select * from departments where  dept_name like ? or dept_code like ? limit ? offset ?`,
+
+        [`${body.search }%`,`${body.search}%`, body.limit, body.offset]
+    )
+return data[0]
 }
 
 // search by department name
@@ -55,5 +67,5 @@ export const postdeptsearch = async (body) => {
 
     const data = await db.query(`SELECT dept_id, dept_name, dept_code FROM departments WHERE dept_name LIKE  ? limit 5`, [`%${body.search}%`]);
     
-    return data[0];
+    return data[0]
 };

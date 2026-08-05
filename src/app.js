@@ -5,7 +5,7 @@ import employeeRouter from "./modules/employee/router.js";
 import cors from "cors"
 import departmentsRouter from "./modules/department/deptrouter.js";
 import leaveRouter from "./modules/leavemanagement/leaverouter.js";
-
+import attendRouter from "./modules/attendance/router.js";
 
 const app = express() 
 app.use(cors({origin:"*"}))
