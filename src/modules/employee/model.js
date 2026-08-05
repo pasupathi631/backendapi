@@ -129,7 +129,8 @@ export const editempid = async (store_3) => {
 
 export const postsearch = async (body) => {
 
-    const data = await db.query(`select * from employees where emp_name like ? or emp_code ?`)
+    const data = await db.query(`select * from employees where emp_name like ? or emp_code like ?`, [`%${body.search}%`, `%${body.search}%`])
+    return data[0]
 }
 
 
@@ -164,7 +165,8 @@ return data[0][0].total_employees
         emp_designation: { column: "emp_designation", operator: "like ?"}
     }
 
-    for (const [key, value] of Object.entries(body.filter)) {
+    const filterObj = body.filter || {}
+    for (const [key, value] of Object.entries(filterObj)) {
         const columnConfig = filterColumnMap[key]
 
         if (!columnConfig) {

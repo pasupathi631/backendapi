@@ -18,7 +18,8 @@ await connectDB()
     app.use('/employee', employeeRouter)
     app.use('/department', departmentsRouter)
     app.use('/leave', leaveRouter)
-    app.use('/attendance', attendRouter)
+    
+
 
 app.use((req, res) => {
     res.status(404).json({

@@ -1,4 +1,4 @@
-import { editempid, employeid, getcount, getempid, getreport, postemployee, postfilter } from "./model.js"
+import { editempid, employeid, getcount, getempid, getreport, postemployee, postfilter, postsearch } from "./model.js"
 
 
 // insert data like create data
@@ -110,7 +110,11 @@ export const search = async (req, res) => {
 
     const body = req.body
 
-     const [result] = await postsearch(body)
+     const result = await postsearch(body)
+     res.json({
+         success: true,
+         data: result
+     })
     
    } catch (error) {
 
