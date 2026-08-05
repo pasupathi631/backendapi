@@ -6,7 +6,6 @@ export const postleave = async (body) => {
 (emp_id, leave_type, leave_from, leave_to, leave_days, leave_reason, leave_status)
 VALUES(?, ?, ?, ?, ?, ?, ?)`, [
           body.emp_id,
-         
           body.leave_type,
           body.leave_from,
           body.leave_to,
@@ -16,10 +15,10 @@ VALUES(?, ?, ?, ?, ?, ?, ?)`, [
      ])
 }
 
-// view leave list
+// view leave list add empployee id, employee name and left join with employee table
 
 export const getLeaveListModel = async (body) => {
-     const rows = await db.query(`SELECT * FROM leave_manage`)
+     const rows = await db.query(`SELECT l.*, e.emp_name FROM leave_manage l left join employees e ON l.emp_id = e.emp_id`)
      return rows[0]
 }
 

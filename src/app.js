@@ -5,7 +5,7 @@ import employeeRouter from "./modules/employee/router.js";
 import cors from "cors"
 import departmentsRouter from "./modules/department/deptrouter.js";
 import leaveRouter from "./modules/leavemanagement/leaverouter.js";
-
+import attendRouter from "./modules/attendance/router.js";
 
 const app = express() 
 app.use(cors({origin:"*"}))
@@ -18,6 +18,7 @@ await connectDB()
     app.use('/employee', employeeRouter)
     app.use('/department', departmentsRouter)
     app.use('/leave', leaveRouter)
+    app.use('/attendance', attendRouter)
 
 app.use((req, res) => {
     res.status(404).json({

@@ -9,5 +9,4 @@ leaveRouter.put('/status', leaveStatusUpdate)
 leaveRouter.get("/dashboard", getDashboardCards)
 leaveRouter.get("/leave-allowance/:emp_id", getLeaveAllowance);
 
-
 export default leaveRouter;
