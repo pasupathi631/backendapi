@@ -15,13 +15,14 @@ export async function up(knex) {
     emp_nationality VARCHAR(50),
     emp_language VARCHAR(100),
     emp_salary DECIMAL(10,2),
-    emp_dept VARCHAR(100),
+    emp_dept INT,
     emp_designation VARCHAR(100),
     emp_code VARCHAR(100),
     emp_status ENUM('Active', 'Inactive') DEFAULT 'Active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (emp_dept) REFERENCES departments(dept_id)
 );`)
     
 }

@@ -1,45 +1,16 @@
 import db from "../../config/db.js"
 
+// attendance statistics model with total employees, total Checked In,Not Checked In, On Leave ,Weekly Off, Holiday 
+
 export const getAttendanceStatisticsModel = async () => {
 
-    const [rows] = await db.query(`
-        SELECT
-
-            (SELECT COUNT(*) FROM employees) AS total_employees,
-
-            SUM(CASE
-                WHEN attendance_status = 'Checked In'
-                THEN 1 ELSE 0
-            END) AS checked_in,
-
-            SUM(CASE
-                WHEN attendance_status = 'Not Checked In'
-                THEN 1 ELSE 0
-            END) AS not_checked_in,
-
-            SUM(CASE
-                WHEN attendance_status = 'On Leave'
-                THEN 1 ELSE 0
-            END) AS on_leave,
-
-            SUM(CASE
-                WHEN attendance_status = 'Weekly Off'
-                THEN 1 ELSE 0
-            END) AS weekly_off,
-
-            SUM(CASE
-                WHEN attendance_status = 'Holiday'
-                THEN 1 ELSE 0
-            END) AS holiday,
-
-            SUM(CASE
-                WHEN attendance_status = 'Checked Out'
-                THEN 1 ELSE 0
-            END) AS checked_out
-
-        FROM attendance
-        WHERE attendance_date = CURDATE();
-    `);
-
-    return rows[0];
+    const data = await db.query(`select
+    (select count(*) from employees) as total_employees,
+    (select count(*) from attendance where status = 'Checked In') as total_checked_in,
+    (select count(*) from attendance where status = 'Not Checked In') as total_not_checked_in,
+    (select count(*) from attendance where status = 'On Leave') as total_on_leave,
+    (select count(*) from attendance where status = 'Weekly Off') as total_weekly_off,
+    (select count(*) from attendance where status = 'Holiday') as total_holiday
+`);
+    return data[0];
 };

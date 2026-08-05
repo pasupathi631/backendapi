@@ -147,6 +147,8 @@ return data[0][0].total_employees
  // filter employees with limit and offset
 
  export const postfilter = async (body) => {
+
+    console.log("body", body)
     
     let query = `SELECT *,count(*) over() as total FROM employees WHERE 1=1`
     const queryValues = []
@@ -156,7 +158,11 @@ return data[0][0].total_employees
         emp_email: { column: "emp_email", operator: "like ?" },
         emp_gender: { column: "emp_gender", operator: "like ?" },
         emp_code: { column: "emp_code", operator: "like ?" },
-        emp_status: { column: "emp_status", operator: "like ?"}
+        emp_status: { column: "emp_status", operator: "like ?"},
+        emp_name: { column: "emp_name", operator: "like ?"},
+        emp_ph_no: { column: "emp_ph_no", operator: "like ?"},
+        emp_bld_grp: { column: "emp_bld_grp", operator: "like ?"},
+        emp_designation: { column: "emp_designation", operator: "like ?"}
     }
 
     const filterObj = body.filter || {}
