@@ -8,7 +8,8 @@ import {
   postPermission,
   getPermissionListModel,
   updatePermissionStatusModel,
-  deletePermissionModel
+  deletePermissionModel,
+  getallview
 } from "./leavemodel.js"
 
 // FOR POST LEAVE
@@ -113,6 +114,7 @@ export const getLeaveAllowance = async (req, res) => {
 export const createPermission = async (req, res) => {
   try {
     const body = req.body;
+    
     await postPermission(body);
     res.json({ success: true });
   } catch (error) {
@@ -136,8 +138,8 @@ export const getPermissionList = async (req, res) => {
 // Update permission request status
 export const updatePermissionStatus = async (req, res) => {
   try {
-    const { id, status } = req.body;
-    await updatePermissionStatusModel(id, status);
+    const body = req.body;
+    await updatePermissionStatusModel(body);
     res.json({ success: true });
   } catch (error) {
     console.error(error);
@@ -148,11 +150,34 @@ export const updatePermissionStatus = async (req, res) => {
 // Delete permission request
 export const deletePermission = async (req, res) => {
   try {
-    const { id } = req.params;
-    await deletePermissionModel(id);
+    const body = req.body;
+    await deletePermissionModel(body);
     res.json({ success: true });
   } catch (error) {
     console.error(error);
     res.json({ success: false, error: error.message });
   }
 };
+
+// get view list 
+
+export const getViewlist = async (req, res) => {
+
+    try {
+
+    const body = req.body
+    const viewlist = await getallview(body)
+    res.json({
+        success: true,
+        data: viewlist
+    })
+
+    } catch (error) {
+        console.log(error)
+        res.json({
+            success: false
+        })
+        
+    }
+
+}

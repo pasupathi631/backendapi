@@ -13,7 +13,6 @@ app.use(express.json());
 
 await connectDB()
 
-
     app.use('/auth', signRouter)
     app.use('/employee', employeeRouter)
     app.use('/department', departmentsRouter)
