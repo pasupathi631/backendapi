@@ -2,20 +2,28 @@ export async function up(knex) {
 
     await knex.raw(
 
-      ` CREATE TABLE leave_manage (
+  ` CREATE TABLE leave_manage (
     leave_id INT PRIMARY KEY AUTO_INCREMENT,
     emp_id INT,
+
     leave_type VARCHAR(50),
+
     leave_from DATE,
     leave_to DATE,
+
+    leave_from_time TIME,
+    leave_to_time TIME,
+
     leave_days INT,
     leave_reason TEXT,
+
     leave_status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
+
     applied_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+
     approved_by INT,
-    approved_date DATETIME )`
-    )
-        
+    approved_date DATETIME)`
+);
     
     
 }

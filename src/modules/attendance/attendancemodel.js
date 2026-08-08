@@ -28,7 +28,7 @@ export const insertAttendance = async (body) =>{
      console.log("insert", body)
 
     await db.query(`insert into attendance (emp_id, att_date, att_in, att_status)
-            values (?, CURDATE(), CURTIME(), 'check in')`, [body])
+            values (?, CURDATE(), CURTIME(), 'Present')`, [body])
 }
    
         
