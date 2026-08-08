@@ -1,16 +1,36 @@
 import db from "../../config/db.js"
 
-// attendance statistics model with total employees, total Checked In,Not Checked In, On Leave ,Weekly Off, Holiday 
+// single employee id insert and update attendance
 
-export const getAttendanceStatisticsModel = async () => {
+export const attendanceCheck = async (body) => {
 
-    const data = await db.query(`select
-    (select count(*) from employees) as total_employees,
-    (select count(*) from attendance where status = 'Checked In') as total_checked_in,
-    (select count(*) from attendance where status = 'Not Checked In') as total_not_checked_in,
-    (select count(*) from attendance where status = 'On Leave') as total_on_leave,
-    (select count(*) from attendance where status = 'Weekly Off') as total_weekly_off,
-    (select count(*) from attendance where status = 'Holiday') as total_holiday
-`);
-    return data[0];
-};
+     console.log("check", body)
+
+    const checkrow = await db.query(`select * from attendance where emp_id = ? AND att_date = CURDATE()`, [body])
+
+
+    return checkrow[0]
+}
+
+
+export const updateAttendance = async (body) => {
+
+    console.log("update", body)
+
+       await db.query(
+            `update attendance SET att_out = CURTIME() where emp_id = ?`, [body]
+        )
+}
+      
+    
+export const insertAttendance = async (body) =>{
+
+     console.log("insert", body)
+
+    await db.query(`insert into attendance (emp_id, att_date, att_in, att_status)
+            values (?, CURDATE(), CURTIME(), 'check in')`, [body])
+}
+   
+        
+    
+

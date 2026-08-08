@@ -1,29 +1,34 @@
 
-import { getAttendanceStatisticsModel } from "./attendancemodel.js";
+import { attendanceCheck, insertAttendance, updateAttendance,} from "./attendancemodel.js";
 
 
-// attencen statistics
+// use if condition
 
-export const AttendanceStatistics = async (req, res) => {
+export const createAttendance = async (req, res) => {
 
     try {
 
-        const result = await getAttendanceStatisticsModel();
+        const body = req.body
 
-        res.status(200).json({
-            success: true,
-            data: result
-        });
+        const checkrow = await attendanceCheck(body.emp_id)
 
+        if(checkrow.length == 0) {
+            await insertAttendance(body.emp_id)
+        }
+
+        else{
+            await updateAttendance(body.emp_id)
+        }
+
+        res.json({
+            success: true
+        })
+        
     } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-
+        console.log(error)
+        res.json({
+            success: false
+        })
     }
 
-};
+}

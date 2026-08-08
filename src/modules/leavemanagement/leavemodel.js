@@ -75,3 +75,55 @@ export const getLeaveAllowanceModel = async (emp_id) => {
 
     return rows[0]
 };
+
+export const postPermission = async (body) => {
+  await db.query(`
+    INSERT INTO permission_manage
+    (emp_id, permission_date, from_time, to_time, duration, reason, status, manager)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `, [
+    body.emp_id,
+    body.date,
+    body.fromTime,
+    body.toTime,
+    body.duration,
+    body.reason,
+    body.status || 'Pending',
+    body.manager || 'Srinivasan Raman'
+  ]);
+};
+
+export const getPermissionListModel = async (emp_id) => {
+  const rows = await db.query(`
+    SELECT 
+      permission_id AS id,
+      emp_id,
+      permission_date AS date,
+      from_time AS fromTime,
+      to_time AS toTime,
+      duration,
+      reason,
+      status,
+      manager,
+      applied_date
+    FROM permission_manage
+    WHERE emp_id = ?
+    ORDER BY permission_date DESC, applied_date DESC
+  `, [emp_id]);
+  return rows[0];
+};
+
+export const updatePermissionStatusModel = async (id, status) => {
+  await db.query(`
+    UPDATE permission_manage 
+    SET status = ? 
+    WHERE permission_id = ?
+  `, [status, id]);
+};
+
+export const deletePermissionModel = async (id) => {
+  await db.query(`
+    DELETE FROM permission_manage 
+    WHERE permission_id = ?
+  `, [id]);
+};

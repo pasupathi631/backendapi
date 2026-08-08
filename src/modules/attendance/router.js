@@ -1,9 +1,9 @@
 import express from "express"
-import { AttendanceStatistics } from "./attendancecontroller.js";
+import { createAttendance } from "./attendancecontroller.js";
 
 
 const attendRouter = express.Router()
 
-attendRouter.get('/statistics', AttendanceStatistics);
+attendRouter.post('/insert', createAttendance);
 
 export default attendRouter;

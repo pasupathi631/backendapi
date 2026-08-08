@@ -8,7 +8,6 @@ export async function up(){
     att_in TIME,
     att_out TIME,
     att_status ENUM('Present', 'Absent', 'Half Day', 'Late') DEFAULT 'Present',
-
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP
@@ -20,5 +19,7 @@ export async function up(){
 
 export async function down(){
 
-    await knex.raw(`drop table if exists attendance`)
+    await knex.raw(
+        `drop table if exists attendance`
+    )
 }

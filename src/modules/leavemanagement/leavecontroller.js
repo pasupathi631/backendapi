@@ -1,5 +1,15 @@
 import db from "../../config/db.js"
-import {  getDashboardCardsModel, getLeaveAllowanceModel, getLeaveListModel, postleave, updateLeaveStatusModel } from "./leavemodel.js"
+import { 
+  getDashboardCardsModel, 
+  getLeaveAllowanceModel, 
+  getLeaveListModel, 
+  postleave, 
+  updateLeaveStatusModel,
+  postPermission,
+  getPermissionListModel,
+  updatePermissionStatusModel,
+  deletePermissionModel
+} from "./leavemodel.js"
 
 // FOR POST LEAVE
 export const leaveinsert = async (req, res) => {
@@ -97,4 +107,52 @@ export const getLeaveAllowance = async (req, res) => {
             message: error.message
         });
     }
+};
+
+// Create permission request
+export const createPermission = async (req, res) => {
+  try {
+    const body = req.body;
+    await postPermission(body);
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.message });
+  }
+};
+
+// Get permission request list
+export const getPermissionList = async (req, res) => {
+  try {
+    const { emp_id } = req.params;
+    const data = await getPermissionListModel(emp_id);
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.message });
+  }
+};
+
+// Update permission request status
+export const updatePermissionStatus = async (req, res) => {
+  try {
+    const { id, status } = req.body;
+    await updatePermissionStatusModel(id, status);
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.message });
+  }
+};
+
+// Delete permission request
+export const deletePermission = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await deletePermissionModel(id);
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.message });
+  }
 };
