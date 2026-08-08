@@ -4,7 +4,9 @@ export async function up(knex) {
 
   ` CREATE TABLE leave_manage (
     leave_id INT PRIMARY KEY AUTO_INCREMENT,
-    emp_id INT,
+    emp_id INT,    
+    emp_name VARCHAR(100),
+
 
     leave_type VARCHAR(50),
 
@@ -29,6 +31,8 @@ await knex.raw(
   ` CREATE TABLE permission_manage (
     permission_id INT PRIMARY KEY AUTO_INCREMENT,
     emp_id INT,
+    emp_name VARCHAR(100),
+
 
     permission_date DATE,
     from_time TIME,

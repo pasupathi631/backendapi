@@ -3,9 +3,10 @@ import db from "../../config/db.js"
 export const postleave = async (body) => {
 
      await db.query(`INSERT INTO leave_manage
-         (emp_id, leave_type, leave_from, leave_to, leave_from_time, leave_to_time, leave_days, leave_reason, leave_status)
+         (emp_id, emp_name, leave_type, leave_from, leave_to, leave_from_time, leave_to_time, leave_days, leave_reason, leave_status)
           VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
           body.emp_id,
+          body.emp_name,
           body.leave_type,
           body.leave_from,
           body.leave_to,
@@ -83,10 +84,11 @@ export const postPermission = async (body) => {
    
   await db.query(`
     INSERT INTO permission_manage
-    (emp_id, permission_date, from_time, to_time, duration, reason, status)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    (emp_id, emp_name, permission_date, from_time, to_time, duration, reason, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `, [
     body.emp_id,
+    body.emp_name,
     body.permission_date,
     body.from_time,
     body.to_time,
@@ -101,6 +103,7 @@ export const getPermissionListModel = async (emp_id) => {
     SELECT 
       permission_id AS id,
       emp_id,
+      emp_name AS name,
       permission_date AS date,
       from_time AS fromTime,
       to_time AS toTime,
