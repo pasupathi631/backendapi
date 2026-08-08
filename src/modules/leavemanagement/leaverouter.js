@@ -1,5 +1,5 @@
 import express from "express"
-import { getDashboardCards, getLeaveList, leaveinsert, leaveStatusUpdate, getLeaveAllowance } from "./leavecontroller.js";
+import { getDashboardCards, getLeaveList, leaveinsert, leaveStatusUpdate, getLeaveAllowance} from "./leavecontroller.js";
 
 const leaveRouter = express.Router()
 

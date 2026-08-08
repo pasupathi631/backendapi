@@ -3,12 +3,14 @@ import db from "../../config/db.js"
 export const postleave = async (body) => {
 
      await db.query(`INSERT INTO leave_manage
-(emp_id, leave_type, leave_from, leave_to, leave_days, leave_reason, leave_status)
-VALUES(?, ?, ?, ?, ?, ?, ?)`, [
+         (emp_id, leave_type, leave_from, leave_to, leave_from_time, leave_to_time, leave_days, leave_reason, leave_status)
+          VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
           body.emp_id,
           body.leave_type,
           body.leave_from,
           body.leave_to,
+          body.leave_from_time,
+          body.leave_to_time,
           body.leave_days,
           body.leave_reason,
           body.leave_status || 'Pending'
@@ -28,13 +30,14 @@ export const updateLeaveStatusModel = async (id, status) => {
      await db.query(`UPDATE leave_manage SET leave_status = ? WHERE leave_id = ?`, [status, id])
 }
 
-// leave dashboard total submission, approved leaves, pending leaves, rejected leaves
+// leave dashboard total submission, approved leaves, pending leaves, rejected leaves, cancel leaves
 
 export const getDashboardCardsModel = async () => {
       const rows = await db.query(`select count(*) as total_submissions,
       sum(case when leave_status = 'Approved' then 1 else 0 end) as approved_leaves,
       sum(case when leave_status = 'Pending' then 1 else 0 end) as pending_leaves,
-      sum(case when leave_status = 'Rejected' then 1 else 0 end) as rejected_leaves
+      sum(case when leave_status = 'Rejected' then 1 else 0 end) as rejected_leaves,
+      sum(case when leave_status = 'Cancelled' then 1 else 0 end) as cancelled_leaves
       from leave_manage`)
       return rows[0][0]
 
@@ -75,3 +78,5 @@ export const getLeaveAllowanceModel = async (emp_id) => {
 
     return rows[0]
 };
+
+    

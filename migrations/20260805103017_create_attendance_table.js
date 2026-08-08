@@ -1,4 +1,4 @@
-export async function up(){
+export async function up(knex) {
 
     await knex.raw(`
         CREATE TABLE attendance (
@@ -17,7 +17,7 @@ export async function up(){
     
 }
 
-export async function down(){
+export async function down(knex) {
 
     await knex.raw(
         `drop table if exists attendance`
